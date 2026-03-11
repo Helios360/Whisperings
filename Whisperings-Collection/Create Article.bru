@@ -1,0 +1,27 @@
+meta {
+  name: Create Article
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{Url}}/api/articles/create
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "hello",
+    "content": "HEyyyyy heloo hellooooo"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

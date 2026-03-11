@@ -1,0 +1,20 @@
+meta {
+  name: Delete Article
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{Url}}/api/articles/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 1773236165406
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

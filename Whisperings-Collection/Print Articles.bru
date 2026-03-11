@@ -1,0 +1,15 @@
+meta {
+  name: Print Articles
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{Url}}/api/articles
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

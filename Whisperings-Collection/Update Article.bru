@@ -1,0 +1,27 @@
+meta {
+  name: Update Article
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{Url}}/api/articles/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 1773236160420
+}
+
+body:json {
+  {
+    "name": "woooow",
+    "content": "HEYYYYYYY"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
