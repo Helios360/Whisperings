@@ -3,14 +3,12 @@ const cors = require('cors');
 const app = express();
 const ratelimit = require('express-rate-limit');
 const path = require('path');
-const fs = require('fs').promises;
-
+const { getAll, saveAll, ensureFile, FILE } = require('./store.js');
 app.disable('x-powered-by');
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 const distPath = path.join(__dirname, '../Whisperings/dist');
-const FILE = "db.json"; // All users are stored in one json file ("A performance blackhole"  -Me)
 
 app.set('trust proxy', 1);
 app.use(cors());
@@ -19,18 +17,6 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(distPath));
 app.use(ratelimit({ windowMs : 15*60*1000, max : 200 }));
 
-// ==== HELPERS ====
-async function getAll(){
-    const raw = await fs.readFile(FILE, 'utf-8');
-    return JSON.parse(raw);
-}
-async function saveAll(data){
-    await fs.writeFile(FILE, JSON.stringify(data, null, 2), 'utf-8');
-}
-async function ensureFile(){ // If file doesn't exist, create it
-    try { await fs.readFile(FILE); }
-    catch { await fs.writeFile(FILE, '[]', 'utf-8'); }
-} // If file exists but doesn't have the "[]" the program fails lol
 ensureFile();
 
 // ==== READ articles ====
