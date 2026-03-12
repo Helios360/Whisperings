@@ -1,3 +1,10 @@
+echo "Installation du projet ..."
+
+read -p "Seeder la base de données ? (y/n)" ans
+
+if [[ "$ans" == "y" || "$ans" == "Y" ]]; then
+    echo "Seed de la db en cours ..."
+    cat > Server/db.json << 'EOF' 
     [
         {
             "id": 2,
@@ -63,3 +70,16 @@
             "updated_at": "2026-03-11T23:43:55.289Z"
         }
     ] 
+EOF
+    echo "Seed terminé"
+else
+    echo "Seed annulé"
+    echo "[]" > Server/db.json
+fi
+echo "Programme terminé lancement de l'app ..."
+cd Whisperings
+npm run build
+cd ../Server
+npm install
+npm audit fix
+node server.js

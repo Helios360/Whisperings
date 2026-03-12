@@ -10,7 +10,7 @@ app.disable('x-powered-by');
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
-const distPath = path.join(__dirname, '../client/dist');
+const distPath = path.join(__dirname, '../Whisperings/dist');
 const FILE = "db.json"; // All users are stored in one json file ("A performance blackhole"  -Me)
 
 app.set('trust proxy', 1);
