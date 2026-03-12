@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const ratelimit = require('express-rate-limit');
 const { get } = require('http');
@@ -8,11 +9,12 @@ const fs = require('fs').promises;
 app.disable('x-powered-by');
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || '0.0.0.0';
+const HOST = process.env.HOST || 'localhost';
 const distPath = path.join(__dirname, '../client/dist');
 const FILE = "db.json"; // All users are stored in one json file ("A performance blackhole"  -Me)
 
 app.set('trust proxy', 1);
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(distPath));
