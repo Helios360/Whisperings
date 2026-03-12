@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const ratelimit = require('express-rate-limit');
 const path = require('path');
+const datatype = require('sequelize');
 app.disable('x-powered-by');
 
 const PORT = process.env.PORT || 3000;
@@ -16,7 +17,13 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(distPath));
 app.use(ratelimit({ windowMs : 15*60*1000, max : 200 }));
 
-ensureFile();
+async function start(){
+    try{
+        await sequelize.authenticate();
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 // ==== READ articles ====
 app.get('/api/articles', async (req, res, next) => {
