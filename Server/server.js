@@ -3,7 +3,6 @@ const cors = require('cors');
 const app = express();
 const ratelimit = require('express-rate-limit');
 const path = require('path');
-const { getAll, saveAll, ensureFile, FILE } = require('./store.js');
 app.disable('x-powered-by');
 
 const PORT = process.env.PORT || 3000;
