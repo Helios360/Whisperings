@@ -1,1 +1,65 @@
-[]
+    [
+        {
+            "id": 2,
+            "name": "Pourquoi écrire tous les jours",
+            "content": "Écrire tous les jours est l'une des meilleures façons de clarifier ses idées. Même quelques lignes suffisent pour entraîner son esprit à structurer la pensée.",
+            "created_at": "2026-03-11T10:05:00.000Z",
+            "updated_at": "2026-03-11T10:05:00.000Z"
+        },
+        {
+            "id": 4,
+            "name": "Pensées nocturnes",
+            "content": "La nuit est souvent le moment où l'esprit se calme et où les idées émergent naturellement. Beaucoup d'écrivains trouvent leur inspiration dans ces moments de silence.",
+            "created_at": "2026-03-11T10:15:00.000Z",
+            "updated_at": "2026-03-11T10:15:00.000Z"
+        },
+        {
+            "id": 5,
+            "name": "Construire un projet logiciel",
+            "content": "Créer un projet logiciel demande de la discipline. Il faut écrire du code, le tester, corriger les erreurs et surtout garder une vision claire de l'objectif final.",
+            "created_at": "2026-03-11T10:20:00.000Z",
+            "updated_at": "2026-03-11T10:20:00.000Z"
+        },
+        {
+            "id": 6,
+            "name": "Le pouvoir des petites améliorations",
+            "content": "Améliorer un projet de 1% chaque jour peut sembler insignifiant. Mais sur le long terme, ces petites améliorations créent une différence énorme.",
+            "created_at": "2026-03-11T10:25:00.000Z",
+            "updated_at": "2026-03-11T10:25:00.000Z"
+        },
+        {
+            "id": 7,
+            "name": "Un article un peu plus long",
+            "content": "Cet article est volontairement plus long afin de tester le stockage de contenus plus importants. Dans une vraie application, les articles pourraient contenir du markdown, des images ou même du HTML. Ici nous restons sur du texte simple afin de vérifier que le système de lecture et d'écriture fonctionne correctement.",
+            "created_at": "2026-03-11T10:30:00.000Z",
+            "updated_at": "2026-03-11T10:30:00.000Z"
+        },
+        {
+            "id": 8,
+            "name": "Test de suppression",
+            "content": "Cet article peut être utilisé pour tester la route DELETE de l'API.",
+            "created_at": "2026-03-11T10:35:00.000Z",
+            "updated_at": "2026-03-11T10:35:00.000Z"
+        },
+        {
+            "id": 9,
+            "name": "Test de modification",
+            "content": "Cet article peut être modifié via la route PUT afin de tester la mise à jour des données.",
+            "created_at": "2026-03-11T10:40:00.000Z",
+            "updated_at": "2026-03-11T10:40:00.000Z"
+        },
+        {
+            "id": 10,
+            "name": "Dernier article de test",
+            "content": "Dernier article de la liste pour vérifier que tout fonctionne correctement avec plusieurs entrées dans le fichier JSON.",
+            "created_at": "2026-03-11T10:45:00.000Z",
+            "updated_at": "2026-03-11T10:45:00.000Z"
+        },
+        {
+            "id": 1773272635289,
+            "name": "totolastico",
+            "content": "un texte de zinzin de l'espace",
+            "created_at": "2026-03-11T23:43:55.289Z",
+            "updated_at": "2026-03-11T23:43:55.289Z"
+        }
+    ] 
