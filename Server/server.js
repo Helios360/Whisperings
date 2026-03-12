@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const ratelimit = require('express-rate-limit');
-const { get } = require('http');
 const path = require('path');
 const fs = require('fs').promises;
 
@@ -102,4 +101,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({success: false, message: 'Internal server error.'});
 });
 app.use('/api', (req, res) => { res.status(404).json({error: "Not Found"}); })
-app.listen(PORT, HOST, () => { console.log(`Server running at http://${HOST}:${PORT}`); });
+if (require.main === module) {
+    app.listen(PORT, HOST, () => { console.log(`Server running at http://${HOST}:${PORT}`); });
+}
+module.exports = app;

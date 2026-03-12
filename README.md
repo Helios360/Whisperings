@@ -34,6 +34,12 @@ npm install
 node server.js
 ```
 
+### test rapide
+
+```bash
+npm test
+```
+
 ***
 
 ## 💡 Démarrage complet du projet (post-setup)
