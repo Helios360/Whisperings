@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 const ratelimit = require('express-rate-limit');
 const path = require('path');
-const datatype = require('sequelize');
+const {sequelize, Article} = require('./db.js')
 app.disable('x-powered-by');
 
 const PORT = process.env.PORT || 3000;
@@ -20,6 +20,8 @@ app.use(ratelimit({ windowMs : 15*60*1000, max : 200 }));
 async function start(){
     try{
         await sequelize.authenticate();
+        await sequelize.sync();
+        app.listen(PORT, HOST, () => { console.log(`Server running at http://${HOST}:${PORT}`); });
     } catch (err) {
         console.error(err);
     }
@@ -28,8 +30,8 @@ async function start(){
 // ==== READ articles ====
 app.get('/api/articles', async (req, res, next) => {
     try {
-        const articles = await getAll(); 
-        res.json({articles});
+        const articles = await Article.findAll({ order: [['createdAt', 'DESC']] }); 
+        res.json({success: true, articles});
     } catch (err) {
         next(err);
     }
@@ -37,17 +39,14 @@ app.get('/api/articles', async (req, res, next) => {
 // ==== CREATE an article ====
 app.post('/api/articles/create', async (req, res, next) => {
     try {
-        const articles = await getAll();
-        const article = {
-            id: Date.now(),
+        const current_article = {
             name: req.body.name,
             content: req.body.content,
             created_at: new Date(),
             updated_at: new Date(),
         };
-        articles.push(article);
-        await saveAll(articles);
-        res.status(201).json(article);
+        await Article.create(current_article);
+        res.status(201).json(current_article);
     } catch(err) {
         next(err);
     }
@@ -57,18 +56,13 @@ app.put('/api/articles/:id', async (req, res, next) => {
     try {
         const id = Number(req.params.id);
         const { name, content } = req.body;
-        const articles = await getAll();
-        const index = articles.findIndex(article => article.id === id);
-        if (index === -1) return res.status(404).json({ success: false, message: 'Article not found'});
-
-        articles[index] = {
-            ...articles[index],
-            name: name ?? articles[index].name,
-            content: content ?? articles[index].content,
-            updated_at: new Date(),
-        }
-        await saveAll(articles);
-        res.json({ success: true, article: articles[index] });
+        const article = await Article.findByPk(id);
+        if (!article) return res.status(404).json({success: false, message: 'Article not found' });
+        await Article.update({
+            name: name ?? article.name,
+            content: content ?? article.content,
+        });
+        res.json({ success: true, article });
     } catch (err) {
         next(err);
     }
@@ -77,12 +71,10 @@ app.put('/api/articles/:id', async (req, res, next) => {
 app.delete('/api/articles/:id', async (req, res, next) => {
     try{
         const id = Number(req.params.id);
-        const articles = await getAll();
-        const index = articles.findIndex(article => article.id === id);
-        if (index === -1) return res.status(404).json({ success: false, message: 'Article not found'});
-        const deleted = articles.splice(index, 1)[0];
-        await saveAll(articles);
-        res.json({ success: true, deleted });
+        const article = await Article.findByPk(id);
+        if (!article) return res.status(404).json({success: false, message: 'Article not found' });
+        await article.destroy();
+        res.json({ success: true });
     } catch(err) {
         next(err);
     }
@@ -92,8 +84,6 @@ app.use((err, req, res, next) => {
     console.error('Global error handler :\n', err);
     res.status(500).json({success: false, message: 'Internal server error.'});
 });
-app.use('/api', (req, res) => { res.status(404).json({error: "Not Found"}); })
-if (require.main === module) {
-    app.listen(PORT, HOST, () => { console.log(`Server running at http://${HOST}:${PORT}`); });
-}
+app.use('/api', (req, res) => { res.status(404).json({ error: "Not Found" }); })
+if (require.main === module) start();
 module.exports = app;
